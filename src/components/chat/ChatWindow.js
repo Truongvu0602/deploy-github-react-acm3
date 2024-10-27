@@ -4,13 +4,7 @@ import classes from "./ChatWindow.module.css";
 import { Card } from "react-bootstrap";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFile,
-  faPaperPlane,
-  faShareNodes,
-  faSmile,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChatWindow() {
   return (
@@ -67,9 +61,7 @@ export default function ChatWindow() {
             />
           </div>
           <div className={classes.chat_chatFooterActions}>
-            <FontAwesomeIcon icon={faFile} />
-            <FontAwesomeIcon icon={faSmile} />
-            <FontAwesomeIcon icon={faPaperPlane} />
+            {/* Chỉ giữ lại các icon cần thiết */}
           </div>
         </div>
       </Card>

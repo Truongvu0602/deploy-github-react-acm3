@@ -11,22 +11,22 @@ import { cartActions } from "../store/cartSlice";
 import Chat from "../components/chat/Chat";
 
 export default function Root() {
-  
-  const modalShow = useSelector(state => state.modal.show);
-  const modalItem = useSelector(state => state.modal.item);
-
+  const modalShow = useSelector((state) => state.modal.show);
+  const modalItem = useSelector((state) => state.modal.item);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(localStorage.getItem('loggedUser')) {
-      const user = JSON.parse(localStorage.getItem('loggedUser'));
+    if (localStorage.getItem("loggedUser")) {
+      const user = JSON.parse(localStorage.getItem("loggedUser"));
       dispatch(userActions.onLogin(user));
     }
 
-    if(localStorage.getItem('cart')) {
-      dispatch(cartActions.preloadCart(JSON.parse(localStorage.getItem('cart'))))
+    if (localStorage.getItem("cart")) {
+      dispatch(
+        cartActions.preloadCart(JSON.parse(localStorage.getItem("cart")))
+      );
     }
-  }, [])
+  }, [dispatch]); // Thêm dispatch vào mảng phụ thuộc
 
   return (
     <div>
@@ -36,19 +36,19 @@ export default function Root() {
       <Container className="mockContent">
         <Outlet />
       </Container>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 }
 
 export const loader = async () => {
-
   const response = await axios.get(
     "https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74"
   );
 
-  if(response.status !== 200) {
-    throw json({message : 'Could not get products !'}, {status : 500});
+  if (!response || response.status !== 200) {
+    // Kiểm tra nếu response hợp lệ
+    throw json({ message: "Could not get products!" }, { status: 500 });
   }
 
   return response.data;

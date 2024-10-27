@@ -3,7 +3,7 @@ import { Link, NavLink, useSubmit } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
 
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,11 +18,11 @@ import { userActions } from "../../store/userSlice";
 export default function MainNavigation() {
   const isLogin = useSelector((state) => state.user.isLogin);
   const userInfo = useSelector((state) => state.user.userInfo);
-  const cartQuant = useSelector(state => state.cart.cartQuant);
-
+  const cartQuant = useSelector((state) => state.cart.cartQuant);
 
   const submit = useSubmit();
   const dispatch = useDispatch();
+
   const logoutHandler = () => {
     dispatch(userActions.onLogout());
     submit(null, { action: "/logout", method: "POST" });
@@ -75,7 +75,7 @@ export default function MainNavigation() {
                 <FontAwesomeIcon
                   className={`${classes.link_icon}`}
                   icon={faCartShopping}
-                ></FontAwesomeIcon>
+                />
                 <span className={classes.nav_cartQuant}>{cartQuant}</span>
                 Cart
               </NavLink>
@@ -106,13 +106,18 @@ export default function MainNavigation() {
                   Login
                 </NavLink>
               ) : (
-                <a className="text-danger" onClick={logoutHandler}>
+                <button
+                  type="button"
+                  className="text-danger"
+                  onClick={logoutHandler}
+                  style={{ background: "none", border: "none", padding: 0 }}
+                >
                   <FontAwesomeIcon
                     className={classes.link_icon}
                     icon={faArrowRightFromBracket}
                   />
                   Logout
-                </a>
+                </button>
               )}
             </li>
           </ul>
